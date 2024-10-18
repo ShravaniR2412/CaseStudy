@@ -1,314 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <title>Product Catalog</title>
-  <style>
-    /* CSS Styling */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
+        /* Navigation bar */
+        nav {
+            background-color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4081;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            color: #ff4081;
+        }
 
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 10px 0;
-      text-align: center;
-    }
+        /* Hero section */
+        .hero {
+            position: relative;
+            background-image: url('https://demo.templatesjungle.com/bakery/images/banner2.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero .content {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 50px;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 20px;
+        }
+        .hero .btn {
+            background-color: #ff4081;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: inline-block;
+        }
 
-    .container {
-      width: 90%;
-      margin: auto;
-      overflow: hidden;
-      padding: 20px 0;
-    }
+        /* About Us section */
+        .about {
+            background-color: #f4f4f4;
+            padding: 50px;
+            text-align: center;
+        }
+        .about h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .about p {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .search-bar {
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
+        /* Product section */
+        .products {
+            padding: 50px;
+            text-align: center;
+        }
+        .products h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .product-list {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .product-item {
+            width: 30%;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .product-item img {
+            width: 100%;
+            height: auto;
+        }
+        .product-item h3 {
+            margin: 0;
+            padding: 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+        .product-item .btn {
+            background-color: #ff4081;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
 
-    .search-bar input[type="text"],
-    .search-bar input[type="number"] {
-      padding: 10px;
-      width: 200px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+        /* Testimonial section */
+        .testimonials {
+            background-color: #f4f4f4;
+            padding: 50px;
+            text-align: center;
+        }
+        .testimonials h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .testimonial-list {
+            display: flex;
+            justify-content: space-between;
+        }
+        .testimonial-item {
+            width: 30%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .testimonial-item p {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .testimonial-item h4 {
+            margin: 0;
+            color: #ff4081;
+        }
 
-    .search-bar button {
-      padding: 10px 20px;
-      border: none;
-      background-color: #333;
-      color: #fff;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .search-bar button:hover {
-      background-color: #555;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .product-card {
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 15px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s;
-    }
-
-    .product-card:hover {
-      transform: scale(1.02);
-    }
-
-    .product-card img {
-      max-width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 5px;
-    }
-
-    .product-info {
-      margin-top: 10px;
-    }
-
-    .product-info h3 {
-      margin: 0 0 10px 0;
-      font-size: 1.2em;
-    }
-
-    .product-info p {
-      margin: 5px 0;
-      color: #555;
-    }
-
-    /* Modal Styling */
-    .modal {
-      display: none;
-      /* Hidden by default */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1000;
-      /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%;
-      /* Full width */
-      height: 100%;
-      /* Full height */
-      overflow: auto;
-      /* Enable scroll if needed */
-      background-color: rgba(0, 0, 0, 0.5);
-      /* Black w/ opacity */
-    }
-
-    .modal-content {
-      background-color: #fefefe;
-      margin: 5% auto;
-      /* 5% from the top and centered */
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 600px;
-      /* Could be more or less, depending on screen size */
-      border-radius: 5px;
-      position: relative;
-    }
-
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      position: absolute;
-      right: 20px;
-      top: 10px;
-      cursor: pointer;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-    }
-
-    @media (max-width: 600px) {
-      .search-bar {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .search-bar input[type="text"],
-      .search-bar input[type="number"] {
-        width: 100%;
-        max-width: 300px;
-      }
-
-      .search-bar button {
-        width: 100%;
-        max-width: 150px;
-      }
-    }
-  </style>
+        /* Footer section */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+        }
+        footer a {
+            color: #ff4081;
+            text-decoration: none;
+        }
+    </style>
 </head>
-
 <body>
 
-  <header>
-    <h1>Product Catalog</h1>
-  </header>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Bakery</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </nav>
 
-  <div class="container">
-    <!-- Search Bar -->
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search by name...">
-      <input type="number" id="minPriceInput" placeholder="Min Price..." step="0.01">
-      <input type="number" id="maxPriceInput" placeholder="Max Price..." step="0.01">
-      <button id="searchButton">Search</button>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="content">
+            <h1>Buttercream Cakes</h1>
+            <p>Freshly Baked, Made with Love</p>
+            <a href="#" class="btn">Shop Now</a>
+        </div>
+    </section>
 
-    <!-- Products Grid -->
-    <div class="products" id="productsContainer">
-      <!-- Product cards will be injected here -->
-    </div>
-  </div>
+    <!-- About Us Section -->
+    <section class="about">
+        <h2>About Us</h2>
+        <p>
+            Welcome to our bakery! We specialize in handcrafted cakes made with love and the finest ingredients. From birthday cakes to wedding cakes, we offer a variety of designs and flavors. Whether you’re looking for a classic chocolate cake or something more creative, we’ve got you covered. Visit us today to experience the magic of our freshly baked treats.
+        </p>
+    </section>
 
-  <!-- Modal for Product Details -->
-  <div id="productModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <img id="modalImage" src="" alt="Product Image" style="width:100%; height:auto; border-radius:5px;">
-      <div class="product-info">
-        <h2 id="modalName"></h2>
-        <p id="modalPrice"></p>
-        <p id="modalDesc"></p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // JavaScript Functionality
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const productsContainer = document.getElementById('productsContainer');
-      const searchButton = document.getElementById('searchButton');
-      const searchInput = document.getElementById('searchInput');
-      const minPriceInput = document.getElementById('minPriceInput'); // Fixed reference
-      const maxPriceInput = document.getElementById('maxPriceInput'); // Fixed reference
-
-      const modal = document.getElementById('productModal');
-      const closeModal = document.getElementsByClassName('close')[0];
-      const modalImage = document.getElementById('modalImage');
-      const modalName = document.getElementById('modalName');
-      const modalPrice = document.getElementById('modalPrice');
-      const modalDesc = document.getElementById('modalDesc');
-
-      // Function to fetch and display products
-      const fetchProducts = async (search = '', minPrice = '', maxPrice = '') => {
-        let url = '/api/products'; // Relative URL
-
-        const queryParams = new URLSearchParams();
-        if (search) queryParams.append('search', search);
-        if (minPrice) queryParams.append('minPrice', minPrice);
-        if (maxPrice) queryParams.append('maxPrice', maxPrice);
-        url = `/api/v1/query?${queryParams.toString()}`;
-
-        try {
-          const response = await fetch(url);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
-          displayProducts(data);
-        } catch (error) {
-          console.error('Error fetching products:', error);
-          productsContainer.innerHTML = '<p style="color:red;">Failed to load products.</p>';
-        }
-      };
-
-      // Event listener for search button
-      searchButton.addEventListener('click', () => {
-        const searchValue = searchInput.value.trim();
-        const minPriceValue = minPriceInput.value.trim();
-        const maxPriceValue = maxPriceInput.value.trim();
-        fetchProducts(searchValue, minPriceValue, maxPriceValue);
-      });
-
-      // Function to display products
-      const displayProducts = (products) => {
-        if (Array.isArray(products) && products.length > 0) {
-          productsContainer.innerHTML = products.map(product => `
-            <div class="product-card" data-id="${product.id}">
-              <img src="${product.image}" alt="${product.name}">
-              <div class="product-info">
-                <h3>${capitalize(product.name)}</h3>
-                ${product.price !== undefined ? `<p>Price: $${product.price.toFixed(2)}</p>` : '<p>Price: N/A</p>'}
-              </div>
+    <!-- Products Section -->
+    <section class="products">
+        <h2>Our Best Products</h2>
+        <div class="product-list">
+            <div class="product-item">
+                <img src="https://demo.templatesjungle.com/bakery/images/cake-item1.jpg" alt="Cake 1">
+                <h3>Chocolate Cake</h3>
+                <a href="#" class="btn">Order Now</a>
             </div>
-          `).join('');
-        } else {
-          productsContainer.innerHTML = '<p>No products found.</p>';
-        }
-      };
+            <div class="product-item">
+                <img src="https://demo.templatesjungle.com/bakery/images/cake-item2.jpg" alt="Cake 2">
+                <h3>Strawberry Cake</h3>
+                <a href="#" class="btn">Order Now</a>
+            </div>
+            <div class="product-item">
+                <img src="https://demo.templatesjungle.com/bakery/images/cake-item3.jpg" alt="Cake 3">
+                <h3>Red Velvet Cake</h3>
+                <a href="#" class="btn">Order Now</a>
+            </div>
+        </div>
+    </section>
 
-      // Function to capitalize first letter
-      const capitalize = (str) => {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-      };
+    <!-- Testimonial Section -->
+    <section class="testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonial-list">
+            <div class="testimonial-item">
+                <p>"The best cakes I've ever had! They made my birthday so special with a custom cake just the way I wanted it."</p>
+                <h4>- Jane Doe</h4>
+            </div>
+            <div class="testimonial-item">
+                <p>"I ordered a cake for my wedding and it was a hit! The design was perfect and the taste was even better."</p>
+                <h4>- John Smith</h4>
+            </div>
+            <div class="testimonial-item">
+                <p>"Fantastic service and even better cakes! Will definitely be coming back for more."</p>
+                <h4>- Emily Johnson</h4>
+            </div>
+        </div>
+    </section>
 
-      // Event delegation for product cards
-      productsContainer.addEventListener('click', async (e) => {
-        const card = e.target.closest('.product-card');
-        if (card) {
-          const productId = card.getAttribute('data-id');
-          try {
-            const response = await fetch(`/api/products/${productId}`);
-            const product = await response.json();
-            showModal(product);
-          } catch (error) {
-            console.error('Error fetching product details:', error);
-          }
-        }
-      });
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Cake Shop | Designed with <a href="#">Love</a> by Us</p>
+    </footer>
 
-      // Function to show modal
-      const showModal = (product) => {
-        modalImage.src = product.image;
-        modalName.textContent = product.name;
-        modalPrice.textContent = `Price: $${product.price.toFixed(2)}`;
-        modalDesc.textContent = product.description;
-        modal.style.display = 'block';
-      };
-
-      // Event listener to close modal
-      closeModal.onclick = () => {
-        modal.style.display = 'none';
-      };
-
-      window.onclick = (event) => {
-        if (event.target == modal) {
-          modal.style.display = 'none';
-        }
-      };
-
-      // Initial product fetch
-      fetchProducts();
-    });
-  </script>
 </body>
-
 </html>
